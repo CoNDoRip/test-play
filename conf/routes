@@ -2,8 +2,11 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# Default path will just redirect to the computer list
 GET     /                           controllers.Application.index()
+
+# Computers list (look at the default values for pagination parameters)
+GET     /employees                  controllers.Application.list(page:Int ?= 0, sortBy ?= "id", order ?= "asc", filter ?= "")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
