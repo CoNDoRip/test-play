@@ -48,4 +48,30 @@ public class Application extends Controller {
             )
         );
     }
+    
+    /**
+     * Display the 'New employee form'.
+     */
+    @Transactional(readOnly=true)
+    public static Result create() {
+        Form<Employee> employeeForm = form(Employee.class);
+        return ok(
+            add.render(employeeForm)
+        );
+    }
+    
+    /**
+     * Handle the 'new employee form' submission 
+     */
+    @Transactional
+    public static Result save() {
+        Form<Employee> employeeForm = form(Employee.class).bindFromRequest();
+        if(employeeForm.hasErrors()) {
+            return badRequest(add.render(employeeForm));
+        }
+        employeeForm.get().save();
+        flash("success", "Employee " + employeeForm.get().first_name 
+            + " " + employeeForm.get().last_name + " has been added");
+        return GO_HOME;
+    }
 }

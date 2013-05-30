@@ -1,0 +1,31 @@
+@(employeeForm: Form[Employee])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Add a new employee</h1>
+    
+    @form(routes.Application.save()) {
+        
+        <fieldset>
+        
+            @inputText(employeeForm("first_name"), '_label -> "First name")
+            @inputText(employeeForm("last_name"), '_label -> "Last name")
+            @inputText(employeeForm("second_name"), '_label -> "Second name")
+            @inputText(employeeForm("age"), '_label -> "Age")
+            @inputText(employeeForm("experience"), '_label -> "Experience")
+            @textarea(employeeForm("description"), '_label -> "Description", 'rows -> 3)            
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Add an employee" class="btn primary"> or 
+            <a href="@routes.Application.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}
