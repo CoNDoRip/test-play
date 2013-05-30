@@ -66,3 +66,5 @@ table.employees .header a {
 #pagination ul .current a {
     color: #666;
 }
+
+#actions.formmargin{margin-bottom:18px;}

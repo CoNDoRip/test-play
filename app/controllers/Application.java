@@ -107,4 +107,16 @@ public class Application extends Controller {
         return GO_HOME;
     }
 
+    /**
+     * Handle employee deletion
+     */
+    @Transactional
+    public static Result delete(Long id) {
+        String fullName = Employee.findById(id).first_name 
+                  + " " + Employee.findById(id).last_name;
+        Employee.findById(id).delete();
+        flash("success", "Employee " + fullName + " has been deleted");
+        return GO_HOME;
+    }
+
 }
