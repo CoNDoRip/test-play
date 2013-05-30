@@ -12,8 +12,7 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final",
-    "postgresql" % "postgresql" % "9.2-1002.jdbc4"
+    "org.hibernate" % "hibernate-entitymanager" % "3.6.9.Final"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
