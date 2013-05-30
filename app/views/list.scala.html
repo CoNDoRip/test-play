@@ -79,13 +79,13 @@
             <tbody>
                 @for(employee <- currentPage.getList) {
                     <tr>
-                        <td>@employee.first_name</td>
-                        <td>@employee.last_name</td>
+                        <td><a href="@routes.Application.edit(employee.id)">@employee.first_name</a></td>
+                        <td><a href="@routes.Application.edit(employee.id)">@employee.last_name</a></td>
                         <td>
                             @if(employee.second_name == null) {
                                 <em>-</em>
                             } else {
-                                @employee.second_name
+                                <a href="@routes.Application.edit(employee.id)">@employee.second_name</a>
                             }
                         </td>
                         <td>

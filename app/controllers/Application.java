@@ -61,7 +61,7 @@ public class Application extends Controller {
     }
     
     /**
-     * Handle the 'new employee form' submission 
+     * Handle the 'New employee form' submission 
      */
     @Transactional
     public static Result save() {
@@ -72,6 +72,38 @@ public class Application extends Controller {
         employeeForm.get().save();
         flash("success", "Employee " + employeeForm.get().first_name 
             + " " + employeeForm.get().last_name + " has been added");
+        return GO_HOME;
+    }
+
+    /**
+     * Display the 'Edit form' of a existing Employee.
+     *
+     * @param id Id of the employee to edit
+     */
+    @Transactional(readOnly=true)
+    public static Result edit(Long id) {
+        Form<Employee> employeeForm = form(Employee.class).fill(
+            Employee.findById(id)
+        );
+        return ok(
+            edit.render(id, employeeForm)
+        );
+    }
+    
+    /**
+     * Handle the 'Edit form' submission 
+     *
+     * @param id Id of the employee to edit
+     */
+    @Transactional
+    public static Result update(Long id) {
+        Form<Employee> employeeForm = form(Employee.class).bindFromRequest();
+        if(employeeForm.hasErrors()) {
+            return badRequest(edit.render(id, employeeForm));
+        }
+        employeeForm.get().update(id);
+        flash("success", "Employee " + employeeForm.get().first_name 
+            + " " + employeeForm.get().last_name + " has been updated");
         return GO_HOME;
     }
 }
