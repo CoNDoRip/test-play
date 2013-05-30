@@ -6,10 +6,22 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")"> 
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
     </head>
+
     <body>
-        @content
+        <header class="topbar">
+            <h1 class="fill">
+                <a href="@routes.Application.index()">
+                    Simple web-application on Play Framework using Hibernate for connection to PostgreSQL
+                </a>
+            </h1>
+        </header>
+        
+        <section id="main">
+            @content
+        </section>
     </body>
 </html>
