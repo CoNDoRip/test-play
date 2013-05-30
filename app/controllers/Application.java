@@ -70,8 +70,9 @@ public class Application extends Controller {
             return badRequest(add.render(employeeForm));
         }
         employeeForm.get().save();
-        flash("success", "Employee " + employeeForm.get().first_name 
-            + " " + employeeForm.get().last_name + " has been added");
+        String fullName = employeeForm.get().first_name 
+                  + " " + employeeForm.get().last_name;
+        flash("success", "Employee \"" + fullName + "\" has been added");
         return GO_HOME;
     }
 
@@ -102,8 +103,9 @@ public class Application extends Controller {
             return badRequest(edit.render(id, employeeForm));
         }
         employeeForm.get().update(id);
-        flash("success", "Employee " + employeeForm.get().first_name 
-            + " " + employeeForm.get().last_name + " has been updated");
+        String fullName = employeeForm.get().first_name 
+                  + " " + employeeForm.get().last_name;
+        flash("success", "Employee \"" + fullName + "\" has been updated");
         return GO_HOME;
     }
 
@@ -115,7 +117,7 @@ public class Application extends Controller {
         String fullName = Employee.findById(id).first_name 
                   + " " + Employee.findById(id).last_name;
         Employee.findById(id).delete();
-        flash("success", "Employee " + fullName + " has been deleted");
+        flash("success", "Employee \"" + fullName + "\" has been deleted");
         return GO_HOME;
     }
 

@@ -55,8 +55,8 @@
     <div id="actions" class="formmargin">
 
         <form action="@link(0, "last_name")" method="GET">
-            <input type="search" id="searchbox" name="filter" value="@currentFilter" placeholder="Filter by employee last name...">
-            <input type="submit" id="searchsubmit" value="Filter by last name" class="btn primary">
+            <input type="search" id="searchbox" name="search" value="@currentFilter" placeholder="Search by employee last name...">
+            <input type="submit" id="searchsubmit" value="Search by last name" class="btn primary">
         </form>
         
         <a class="btn success" id="add" href="@routes.Application.create()">Add a new employee</a>
