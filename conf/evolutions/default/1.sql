@@ -10,7 +10,7 @@ CREATE TABLE employee (
   ,last_name      VARCHAR(30)     NOT NULL
   ,second_name    VARCHAR(30)
   ,age            INT
-  ,experience     VARCHAR(500)
+  ,experience     INT
   ,description    VARCHAR(500)
 );
 
