@@ -61,7 +61,7 @@ public class Application extends Controller {
     }
     
     /**
-     * Handle the 'New employee form' submission 
+     * Handle the 'New employee form' submission
      */
     @Transactional
     public static Result save() {
@@ -106,4 +106,5 @@ public class Application extends Controller {
             + " " + employeeForm.get().last_name + " has been updated");
         return GO_HOME;
     }
+
 }
