@@ -3,7 +3,7 @@
 # --- !Ups
 
 INSERT INTO employee (first_name, last_name, second_name, age, experience, description) 
-       VALUES ('John', 'Smith', '', 25, 10, 'Java developer');
+       VALUES ('John', 'Smith', '', 25, 7, 'Java developer');
 INSERT INTO employee (first_name, last_name, second_name, age, experience, description) 
        VALUES ('Mike', 'White', '', 31, 5, 'DBA');
 INSERT INTO employee (first_name, last_name, second_name, age, experience, description) 

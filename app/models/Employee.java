@@ -27,9 +27,11 @@ public class Employee {
     
     public String second_name;
     
+    @Constraints.Min(value=18)
     public Short age;
     
-    public String experience;
+    @Constraints.Min(value=0)
+    public Short experience;
     
     public String description;
 
