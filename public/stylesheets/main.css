@@ -70,7 +70,7 @@ table.employees .header a {
 #actions.formmargin{margin-bottom:18px;}
 
 #actions #advsearch {
-    position: absolute;
-    left: 378px;
+    position: relative;
+    left: 0;
     top: 0;
 }

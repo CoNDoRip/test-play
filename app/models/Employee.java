@@ -28,10 +28,10 @@ public class Employee {
     public String second_name;
     
     @Constraints.Min(value=18)
-    public Short age;
+    public Integer age;
     
     @Constraints.Min(value=0)
-    public Short experience;
+    public Integer experience;
     
     @Constraints.MaxLength(value=500)
     public String description;
@@ -75,19 +75,45 @@ public class Employee {
      * @param order Sort order (either or asc or desc)
      * @param filter Filter applied on the last_name column
      */
-    public static Page page(int page, int pageSize, String sortBy, String order, String filter) {
+    public static Page page(int page, int pageSize, String sortBy, String order, SearchEmployee filter) {
         if(page < 1) page = 1;
-        Long total = (Long)JPA.em()
-            .createQuery("SELECT count(e) FROM Employee e WHERE lower(e.last_name) like ?")
-            .setParameter(1, "%" + filter.toLowerCase() + "%")
-            .getSingleResult();
-        List<Employee> data = JPA.em()
-            .createQuery("FROM Employee e WHERE lower(e.last_name) like ? order by e." + sortBy + " " + order)
-            .setParameter(1, "%" + filter.toLowerCase() + "%")
+        String fromWhere = addCond(filter);
+
+        Query q1 = JPA.em().createQuery("SELECT count(e) " + fromWhere);
+        setParams(q1, filter);
+        Long total = (Long)q1.getSingleResult();
+
+        Query q2 = JPA.em().createQuery(fromWhere + " order by e." + sortBy + " " + order);
+        setParams(q2, filter);
+        List<Employee> data = q2
             .setFirstResult((page - 1) * pageSize)
             .setMaxResults(pageSize)
             .getResultList();
         return new Page(data, total, page, pageSize);
+    }
+
+    private static String addCond(SearchEmployee filter) {
+        StringBuilder fromWhere = new StringBuilder();
+
+        fromWhere.append("FROM Employee e ");
+        fromWhere.append("WHERE lower(e.first_name) like :fn");
+        fromWhere.append("  and lower(e.last_name) like :ln");
+        fromWhere.append("  and lower(e.second_name) like :sn");
+        fromWhere.append("  and lower(e.description) like :descr");
+
+        if (!filter.min_age.equals("")) fromWhere.append("  and e.age >= " + filter.min_age);
+        if (!filter.max_age.equals("")) fromWhere.append("  and e.age <= " + filter.max_age);
+        if (!filter.min_experience.equals("")) fromWhere.append("  and e.experience >= " + filter.min_experience);
+        if (!filter.max_experience.equals("")) fromWhere.append("  and e.experience <= " + filter.max_experience);
+        
+        return fromWhere.toString();
+    }
+
+    private static void setParams(Query q, SearchEmployee filter) {
+        q.setParameter("fn", "%" + filter.first_name.toLowerCase() + "%");
+        q.setParameter("ln", "%" + filter.last_name.toLowerCase() + "%");
+        q.setParameter("sn", "%" + filter.second_name.toLowerCase() + "%");
+        q.setParameter("descr", "%" + filter.description.toLowerCase() + "%");
     }
     
     /**

@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index()
 
 # Computers list (look at the default values for pagination parameters)
-GET     /employees                  controllers.Application.list(page:Int ?= 0, sortBy ?= "id", order ?= "asc", search ?= "")
+GET     /employees                  controllers.Application.list(page:Int ?= 0, sortBy ?= "id", order ?= "asc", fn ?= "", ln ?= "", sn ?= "", min_a ?= "", max_a ?= "", min_exp ?= "", max_exp ?= "", descr ?= "")
 
 # Add an employee
 GET     /employees/add              controllers.Application.create()

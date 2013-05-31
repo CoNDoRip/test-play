@@ -28,7 +28,7 @@ public class Application extends Controller {
      * This result directly redirect to application home.
      */
     public static Result GO_HOME = redirect(
-        routes.Application.list(0, "id", "asc", "")
+        routes.Application.list(0, "id", "asc", "", "", "", "", "", "", "", "")
     );
 
     /**
@@ -37,14 +37,27 @@ public class Application extends Controller {
      * @param page Current page number (starts from 0)
      * @param sortBy Column to be sorted
      * @param order Sort order (either asc or desc)
-     * @param filter Filter applied on employee last names
+     * @param filter Filter applied on employee
      */
     @Transactional(readOnly=true)
-    public static Result list(int page, String sortBy, String order, String filter) {
+    public static Result list(int page
+                             ,String sortBy
+                             ,String order
+                             ,String fn
+                             ,String ln 
+                             ,String sn
+                             ,String min_age
+                             ,String max_age
+                             ,String min_exp
+                             ,String max_exp
+                             ,String descr
+                             ) {
+        SearchEmployee filter = new SearchEmployee(fn, ln, sn, 
+                    min_age, max_age, min_exp, max_exp, descr);
         return ok(
             list.render(
                 Employee.page(page, 10, sortBy, order, filter),
-                sortBy, order, filter
+                sortBy, order, ln
             )
         );
     }
@@ -142,7 +155,19 @@ public class Application extends Controller {
             return badRequest(search.render(searchForm));
         }
         SearchEmployee se = searchForm.get();
-        return GO_HOME;
+        se.fixNulls();
+        return redirect(routes.Application.list(0
+                                               ,"id"
+                                               ,"asc"
+                                               ,se.first_name
+                                               ,se.last_name
+                                               ,se.second_name
+                                               ,se.min_age
+                                               ,se.max_age
+                                               ,se.min_experience
+                                               ,se.max_experience
+                                               ,se.description
+                                               ));
     }
 
 }
