@@ -121,4 +121,28 @@ public class Application extends Controller {
         return GO_HOME;
     }
 
+    /**
+     * Display the 'Search employee form'.
+     */
+    @Transactional(readOnly=true)
+    public static Result advsearch() {
+        Form<SearchEmployee> searchForm = form(SearchEmployee.class);
+        return ok(
+            search.render(searchForm)
+        );
+    }
+
+    /**
+     * Handle the 'Search employee form' submission 
+     *
+     */
+    public static Result search() {
+        Form<SearchEmployee> searchForm = form(SearchEmployee.class).bindFromRequest();
+        if(searchForm.hasErrors()) {
+            return badRequest(search.render(searchForm));
+        }
+        SearchEmployee se = searchForm.get();
+        return GO_HOME;
+    }
+
 }

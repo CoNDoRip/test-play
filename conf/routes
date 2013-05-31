@@ -12,6 +12,10 @@ GET     /employees                  controllers.Application.list(page:Int ?= 0, 
 GET     /employees/add              controllers.Application.create()
 POST    /employees                  controllers.Application.save()
 
+# Advanced search
+GET     /employees/advsearch       	controllers.Application.advsearch()
+POST    /employees/search        	controllers.Application.search()
+
 # Edit existing employee
 GET     /employees/:id              controllers.Application.edit(id:Long)
 POST    /employees/:id              controllers.Application.update(id:Long)

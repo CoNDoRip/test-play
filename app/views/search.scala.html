@@ -1,0 +1,33 @@
+@(searchForm: Form[SearchEmployee])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Search employees</h1>
+    
+    @form(routes.Application.search()) {
+        
+        <fieldset>
+        
+            @inputText(searchForm("first_name"), '_label -> "First name")
+            @inputText(searchForm("last_name"), '_label -> "Last name")
+            @inputText(searchForm("second_name"), '_label -> "Second name")
+            @inputText(searchForm("min_age"), '_label -> "Age between")
+            @inputText(searchForm("max_age"), '_label -> "and")
+            @inputText(searchForm("min_experience"), '_label -> "Experience between")
+            @inputText(searchForm("max_experience"), '_label -> "and")
+            @textarea(searchForm("description"), '_label -> "Description", 'rows -> 3)
+
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Search employees" class="btn primary"> or 
+            <a href="@routes.Application.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}
